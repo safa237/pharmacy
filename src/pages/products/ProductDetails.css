@@ -1,0 +1,112 @@
+.detailsPage .header-container{
+  margin-bottom: 5px;
+  min-height: 600px;
+}
+.productImg{
+    width: 300px;
+    height: 300px;
+    border-top-right-radius: 150px;
+    border-bottom-left-radius: 150px;
+  }
+  .detailsContent{
+    border-top-left-radius: 150px;
+      border-top-right-radius: 150px;
+      background: linear-gradient(to right, #3EBF87, #52B443CC); 
+  }
+  .flexContent{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3em;
+    min-height: 400px;
+  }
+  .flexContent .detailsIMG{
+    width: 40%;
+  }
+  .flexContent .detailsINFO{
+   min-height: 150px;
+    width: 60%;
+    margin-top: 3em;
+  }
+  .detailsIMG img{
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+.productFooter{
+  height: 70px;
+  background-color: #3EBF87;
+  border-top-left-radius: 150px;
+  border-top-right-radius: 150px;
+  overflow-y: hidden;
+}
+.flexFooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.middlefooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 50%;
+}
+
+.counter{
+  margin-left: 5em;
+}
+.counter button{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.counter span{
+  font-size: larger;
+  font-weight: bold;
+}
+.review button{
+  background: white; 
+  height: 50px;
+  width: 100px;
+  border-radius: 15px;
+  color: black;
+  margin-left: 5px;
+}
+.cart{
+  margin-right: 2em;
+}
+.detailsflex{
+  display: flex;
+  flex-direction: column;
+}
+.detailsflex .detailsflexabout{
+  height: 15%;
+}
+.detailsflexabout h1{
+  font-size: large;
+  color: black;
+}
+.detailsflexabout p{
+  text-align: start;
+  color: black;
+}
+.detailsflex .detailsfleximg{
+  height: 90%;
+}
+.detailsfleximg{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  width: 1500px;
+}
+
+.detailsINFO h1{
+  font-size: large;
+  color: black;
+}
+.detailsINFO span{
+  font-size: medium;
+  color: black;
+}
+
+

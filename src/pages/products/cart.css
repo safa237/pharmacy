@@ -1,0 +1,188 @@
+.cartGreen{
+   min-height: 900px;
+}
+
+.flexcart{
+    display: flex;
+    flex-direction: column;
+}
+.productcart{
+    height: 150px;
+    background-color: #fff;
+    width: 40%;
+    margin-top: 1em;
+    border-radius: 25px;
+    overflow-y: hidden; 
+    padding-bottom: 2em;
+    border: 1px solid rgb(202, 189, 189);
+    box-shadow: 10px 5px 10px #8080809e;
+    margin-bottom: 10px;
+}
+.flexOnecart{
+    display: flex;
+    flex-direction: row;
+    padding-top: 5px;
+   
+}
+.imgcart{
+    width: 30%;
+    margin-right: 15px;
+   
+}
+.infocartone{
+    width: 40%;
+}
+.infocarttwo{
+    width: 20%;
+   
+    text-align: end;
+}
+    
+.imgcart img{
+    border-radius: 50%;
+    margin-left: 2px;
+}
+.deletecart{
+    margin-left: 15em;
+}
+h4 , h6{
+    color: #3ebf87;   
+}
+.infocartone , .infocarttwo{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 150px;
+}
+.flexContainerCart{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 3em;
+}
+.flexcart{
+    width: 100%;
+}
+.total{
+    width: 30%;
+    height: 250px;
+    margin-top: 5em;
+    background-color: #fff;
+    border-top-right-radius: 80px;
+    border-bottom-left-radius: 80px;
+    width: 350px;
+    text-align: center;
+    padding-top: 2em;
+    position: relative;
+    margin-right: 15px;
+    box-shadow: 10px 5px 10px #8080809e;
+}
+.total input{
+    border-radius: 50px;
+    background-color: #3ebf87 ;
+    border-style: none;
+    height: 30px;
+    color: white;
+    padding-left: 5px;
+}
+.total input:focus {
+    border: none;
+    outline: none;
+}
+.confirmbtn{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1em;
+    background-color: #3ebf87;
+    color: white;
+    width: 80px;
+    height: 30px;
+    border-radius: 50px;
+    border-style: none;
+}
+
+@media only screen and (max-width: 767px) {
+    .flexContainerCart{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        margin-top: 3em;
+    }
+    .flexcart{
+        width: 100%;
+    }
+    .productcart {
+        width: 80%;
+        margin-left: 2.5em;
+    }
+    .total{
+        width: 80%;
+        margin-right: 50px;
+    }
+    .flexContainerCart .total {
+         width: 320px; 
+         margin-left: 1.5em;
+         margin-bottom: 2em;
+    }
+}
+@media only screen and (max-width: 1199px) and (min-width: 768px) {
+    .productcart{
+        width: 90%;
+    }
+}
+
+/* Add this CSS to style the dropdown */
+.cartGreen {
+    position: relative;
+  }
+  
+  .cart-products-dropdown {
+    position: absolute;
+    top: 100%; /* Position the dropdown below the search input */
+    left: 0;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .product-dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #3a7e89;
+    width: auto;
+    display: inline-block;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background-color: #f2f2f2;
+    }
+  }
+  
+  .flexContainerCart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the start */
+  }
+  
+  .flexcart {
+    width: 70%; /* Adjust the width of the cart items */
+  }
+  
+  .total {
+    width: 30%; /* Adjust the width of the total section */
+  }
+  
+  .confirmbtn {
+    margin-top: 10px; /* Add margin to the Confirm button */
+  }
+  
+  /* Add padding to the content to make room for the absolute positioned dropdown */
+  .content {
+    padding-top: 60px; /* Adjust the padding top value to match the dropdown top position */
+  }
+  
