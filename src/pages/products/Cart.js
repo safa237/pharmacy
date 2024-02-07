@@ -86,12 +86,11 @@ function Cart() {
 
   const [promoCode, setPromoCode] = useState('');
   const bearerToken = useSelector(selectToken);
-  
+  const [numItems, setNumItems] = useState(0);
 
   const fetchUserCart = async () => {
     try {
-      const language = 'en'; 
-  
+      
       const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/user/cart/my', {
         headers: {
           'Authorization': `Bearer ${bearerToken}`,
@@ -105,7 +104,7 @@ function Cart() {
         setCart(cartData.cart.cartItems || []); 
         calculateTotalPrice(cartData.cart.cartItems); 
         console.log('Success fetch carts', cartData.cart.cartItems);
-        console.log('n of products' , );
+        setNumItems(cartData.cart.cartItems.length);
       } else {
         console.error('Error fetching user cart: Unexpected response structure');
       }
@@ -198,8 +197,7 @@ function Cart() {
     }
   };
 
-
- 
+  
   
   return(
     <div>
@@ -208,12 +206,13 @@ function Cart() {
         handleSearchChange={handleSearchChange}
         //filteredProducts={filteredProducts}
         handleProductClick={handleProductClick}
-        cartunmber = {cart.length}
+        cartNumber={cart.length}
       />
 
       <div className="green-containerr cartGreen ">
         <div className="header-container">
           <div className="flexContainerCart">
+          
           <div className="flexcart">
           {cart?.map((product) => (<div className="productcart" key={product.productId}>
               <div className="flexOnecart">

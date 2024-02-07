@@ -1,4 +1,4 @@
-import { createSlice, createAction } from "@reduxjs/toolkit";
+/*import { createSlice, createAction } from "@reduxjs/toolkit";
 
 const localStorageKey = 'cartSlice';
 const loadCartFromStorage = () => {
@@ -59,4 +59,14 @@ export const cartSlice = createSlice({
 
 
 export const { addToCart , deleteFromCart } = cartSlice.actions;
-export default cartSlice.reducer;
+export default cartSlice.reducer;*/
+
+
+// cartSlice.js
+
+// cartSlice.js
+
+// cartSlice.js
+
+// cartSlice.js
+

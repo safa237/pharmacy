@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { selectToken } from "../../rtk/slices/Auth-slice";
 import { Modal , Button } from 'react-bootstrap';
 import axios from "axios";
+import { selectLanguage } from "../../rtk/slices/Translate-slice";
 import './ProductDetails.css';
 
 function ProductDetails({rating}) {
@@ -21,6 +22,7 @@ function ProductDetails({rating}) {
   const bearerToken = useSelector(selectToken);
   const products = useSelector((state) => state.products.products);
   const isUserLoggedIn = useSelector(selectToken) !== null;
+  const language = useSelector(selectLanguage);
 
   const handleProductClick = (productId) => {
     navigate(`/home/product/${productId}`);
@@ -32,7 +34,12 @@ function ProductDetails({rating}) {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`https://ecommerce-1-q7jb.onrender.com/api/v1/public/product/en/${productId}`);
+        const response = await fetch(`https://ecommerce-1-q7jb.onrender.com/api/v1/public/product/${productId}`,
+        {headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          'Accept-Language': language,
+        },}
+        );
         const data = await response.json();
         setProductDetails(data.data.product);
         console.log('data is' ,data);
@@ -85,7 +92,7 @@ function ProductDetails({rating}) {
       productId: productId,
       quantity: quantity, 
     };
-  
+
     try {
       const response = await axios.put(
         'https://ecommerce-1-q7jb.onrender.com/api/v1/user/cart/update',
@@ -94,15 +101,18 @@ function ProductDetails({rating}) {
           headers: {
             'Authorization': `Bearer ${bearerToken}`,
             'Content-Type': 'application/json',
+            'Accept-Language': language,
           },
         }
       );
   
+      setModalMessage('product added to cart');
+      setShowModal(true);
       console.log('Product added to cart:', response.data);
-      setQuantity(0);
-      setTotalPrice(0);
-      
-    } catch (error) {
+  
+    } 
+  
+     catch (error) {
       console.error('Error adding product to cart:', error.message);
     }
   };
@@ -134,8 +144,28 @@ const [detailsOpen, setDetailsOpen] = useState(false);
           
           <div className="header-container flexContent">
             <div className="detailsflex">
+
             <div className="detailsflexabout">
-              <h1>about this product : </h1>
+            <div className="flexnamerate">
+                <div className="">
+                  <h2>
+                  {productDetails && productDetails.name}
+                  </h2>
+                </div>
+                <div className="">
+                  <h2>
+                  {productDetails && productDetails.price}$
+                  </h2>
+                </div>
+                <div className="">
+                <StarRating
+                           initialRating={productDetails && productDetails.rating}
+                          isClickable={false}
+                        /> 
+                </div>
+              </div>
+              <h1 style={{marginTop:'15px'}}>about this product : </h1>
+              <p style={{width: '100%' , wordWrap: 'break-word'}}></p>
               <p></p>
             </div>
             <div className="detailsfleximg">
@@ -172,8 +202,8 @@ const [detailsOpen, setDetailsOpen] = useState(false);
                 <button onClick={() => handleDetailsClick()}>Review</button>
               </div>
               <div className="middlefooter">
-                <StarRating rating={rating} />
-                <div style={{ marginLeft: "20px" }}>
+                
+                <div >
                   
                   {productDetails ? ( 
              <h1>   {productDetails.price * quantity} $ </h1>

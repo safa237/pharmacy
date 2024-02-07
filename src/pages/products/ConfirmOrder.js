@@ -221,7 +221,6 @@ import logo from "../../images/Vita Logo2.png";
 import { FaTrash } from "react-icons/fa";
 import { Button, Container, Table, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFromCart } from "../../rtk/slices/Cart-slice";
 import { useEffect } from "react";
 import product from "../../images/product.png";
 import NavHeader from "../../components/NavHeader";
@@ -263,9 +262,7 @@ function ConfirmOrder() {
     return acc;
   }, 0);
 
-  const handleDeleteFromCart = (productId) => {
-    dispatch(deleteFromCart({ id: productId }));
-  };
+ 
 
   const [searchTerm, setSearchTerm] = useState("");
   const allProducts = useSelector((state) => state.products);

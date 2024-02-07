@@ -46,7 +46,14 @@ const ReviewDialog = ({ isOpen, onCancel , productId  }) => {
       const fetchReviews = async () => {
         try {
           const response = await axios.get(
-            `https://ecommerce-1-q7jb.onrender.com/api/v1/public/review/product/${productId}`
+            `https://ecommerce-1-q7jb.onrender.com/api/v1/public/review/product/${productId}`,
+            {
+              headers: {
+                'Authorization': `Bearer ${bearerToken}`,
+                'Content-Type': 'application/json',
+                'Accept-Language': language,
+              },
+            }
           );
     
           setReviews(response.data.data.reviews);
@@ -100,8 +107,9 @@ const ReviewDialog = ({ isOpen, onCancel , productId  }) => {
           const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${bearerToken}`,
+              'Authorization': `Bearer ${bearerToken}`,
+                'Content-Type': 'application/json',
+                'Accept-Language': language,
             },
             body: JSON.stringify(requestBody),
           });

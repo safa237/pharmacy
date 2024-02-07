@@ -243,7 +243,7 @@ const fetchUserFavourite = async () => {
         userId={userId}
         searchTermm={searchTerm}
         handleSearchChange={handleSearchChange}
-        //filteredProductss={filteredProducts}
+       
         handleProductClick={handleProductClick}
       />
 
@@ -296,10 +296,10 @@ const fetchUserFavourite = async () => {
                 
                 <div className='rate'>
                 
-                {isLoggedIn && <StarRating
+               <StarRating
                            initialRating={product.rating}
                           isClickable={false}
-                        /> }
+                        /> 
   
                 </div>
                 <div className="price">

@@ -725,7 +725,7 @@ function MyOrders() {
                             <div className="col">{item.quantity}</div>
                             <div className="col">${item.unitPrice}</div>
                             <div className="col">${item.totalPrice}</div>
-                            <div className="col">${item.totalPrice}</div>
+                           
                           </div>
                         ))}
                       </div>

@@ -24,7 +24,7 @@ import { clearWishlist } from '../rtk/slices/Wishlist-slice';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { selectToken } from '../rtk/slices/Auth-slice';
 
-function NavHeader({ userId , handleProductClick  , cartunmber}) {
+function NavHeader({ userId , handleProductClick  , cartunmber , cartNumber }) {
   const dispatch = useDispatch();
   const language = useSelector(selectLanguage);
   const translations = useSelector(selectTranslations);
@@ -332,6 +332,7 @@ function NavHeader({ userId , handleProductClick  , cartunmber}) {
           )}
              <Link to="/cart" className="cart-link">
              <img style={{marginRight : '10px' , width: '30px' , height: '30px'}} src={cartimg} alt='cart'/>
+            
            </Link>
             <Link>
               <div className="user-profile" onClick={toggleSidebar}>
