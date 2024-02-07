@@ -36,6 +36,7 @@ import ProfileInfo from "./pages/ProfileInfo";
 import ChangePassword from "./pages/ChangePassword";
 import BlogDetails from "./pages/BlogDetails";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Notification from "./pages/Notification";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
       <Route path="/changePassword" element={<ChangePassword />} />
       <Route path="/order/confirm" element={<ConfirmOrder/>} />
       <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
+      <Route path="/notification" element={<Notification />} />
       <Route
           path="/home/product/:productId"
           element={<ProductDetails /> }  />

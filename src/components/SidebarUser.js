@@ -7,6 +7,7 @@ import { MdOutlineWifiPassword } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import { useEffect } from 'react';
 import ChangePassword from '../pages/ChangePassword';
+import { IoIosNotificationsOutline } from "react-icons/io";
 import './sidebaruser.css';
 
 function SidebarUser({ isOpen, onClose , handleLogout  }) {
@@ -50,6 +51,10 @@ const handleIconClick = (event) => {
             <Link to="/changePassword" className="cart-link">
               <MdOutlineWifiPassword style={{marginRight : '15px' , fill: '#23b447e6'}} className="cart-icon" />
               <h5>Change Password</h5>
+            </Link>
+            <Link  to="/notification" className="cart-link">
+              <IoIosNotificationsOutline style={{marginRight : '15px' , fill: '#23b447e6'}} className="cart-icon" />
+              <h5>Notification</h5>
             </Link>
             <Link  onClick={handleLogoutClick} className="cart-link">
               <IoIosLogOut style={{marginRight : '15px' , fill: '#23b447e6'}} className="cart-icon" />
