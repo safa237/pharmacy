@@ -24,7 +24,7 @@ import { clearWishlist } from '../rtk/slices/Wishlist-slice';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { selectToken } from '../rtk/slices/Auth-slice';
 
-function NavHeader({ userId , handleProductClick }) {
+function NavHeader({ userId , handleProductClick  , cartunmber}) {
   const dispatch = useDispatch();
   const language = useSelector(selectLanguage);
   const translations = useSelector(selectTranslations);
@@ -40,6 +40,7 @@ function NavHeader({ userId , handleProductClick }) {
   const [searchTerm, setSearchTerm] = useState('');
   const cart = useSelector(state => state.cart);
 
+ 
 
   const handleLogout = () => {
     dispatch(setToken(null));
@@ -56,12 +57,17 @@ function NavHeader({ userId , handleProductClick }) {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`https://ecommerce-1-q7jb.onrender.com/api/v1/public/category/${language}/all`);
+        const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/public/category/all', {
+          headers: {
+            'Accept-Language': language,
+          },
+        });
         setCategories(response.data.data.categories);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
+
 
     checkLoggedInStatus();
     fetchCategories();

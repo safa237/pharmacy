@@ -84,16 +84,17 @@ function Store  ()  {
   const handleAddToFavorites = async (productId) => {
     try {
       if (isProductInWishlist(productId)) {
-        // If product is already in wishlist, remove it
+       
         await handleDeleteFromWishlist(productId);
       } else {
-        // If product is not in wishlist, add it
+        
         await axios.put(
           `https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/add/${productId}`,
           {},
           {
             headers: {
               'Authorization': `Bearer ${bearerToken}`,
+              'Accept-Language': language,
             },
           }
         );
@@ -109,6 +110,7 @@ function Store  ()  {
       await axios.delete(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/remove/${productId}`, {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
+          'Accept-Language': language,
         },
       });
       await fetchUserFavourite();
@@ -120,9 +122,10 @@ function Store  ()  {
   const fetchUserFavourite = async () => {
     try {
       const language = 'en';
-      const response = await axios.get(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/${language}`, {
+      const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/my', {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
+          'Accept-Language': language,
         },
       });
   
@@ -143,11 +146,7 @@ function Store  ()  {
   
 
   const handleDetailsClick = (selectedProduct) => {
-    if (!isLoggedIn) {
-      
-      alert('Please sign in to view product.');
-      return;
-    }
+   
     setSelectedProduct(selectedProduct);
     setDetailsOpen(true);
   };
@@ -228,6 +227,7 @@ function Store  ()  {
           headers: {
             'Authorization': `Bearer ${bearerToken}`,
             'Content-Type': 'application/json',
+            'Accept-Language': language,
           },
         }
       );
@@ -275,12 +275,16 @@ function Store  ()  {
     try {
       let url;
       if (categoryId === null) {
-        url = `https://ecommerce-1-q7jb.onrender.com/api/v1/public/product/${language}/all`;
+        url = 'https://ecommerce-1-q7jb.onrender.com/api/v1/public/product/all'
       } else {
-        url = `https://ecommerce-1-q7jb.onrender.com/api/v1/public/category/${language}/${categoryId}`;
+        url = `https://ecommerce-1-q7jb.onrender.com/api/v1/public/category/${categoryId}`;
       }
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Accept-Language': language,
+        },
+      });
       const data = await response.json();
 
       if (response.ok) {
@@ -318,7 +322,11 @@ function Store  ()  {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`https://ecommerce-1-q7jb.onrender.com/api/v1/public/category/${language}/all`);
+        const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/public/category/all', {
+          headers: {
+            'Accept-Language': language,
+          },
+        });
         setCategories(response.data.data.categories);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -422,24 +430,7 @@ function Store  ()  {
   };
 
   const [userRating, setUserRating] = useState(0);
-  const fetchUserRating = async () => {
-    try {
-      const response = await axios.get('https://mostafaben.bsite.net/api/Rating/user/14');
-      return response.data.value || 0;
-    } catch (error) {
-      console.error('Error fetching user rating:', error);
-      return 0;
-    }
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const rating = await fetchUserRating();
-      setUserRating(rating);
-    };
-
-    fetchData();
-  }, []);
+  
 
 
     return (
@@ -484,9 +475,9 @@ function Store  ()  {
     />
           
 
-           {isLoggedIn && <FaEye className="cart-iconPro"
+           <FaEye className="cart-iconPro"
                  onClick={() => handleDetailsClick(product)}
-               /> }
+               /> 
                               
 
               </div>
@@ -508,7 +499,13 @@ function Store  ()  {
                         /> }
   
                 </div>
-                <div className='price'>{`$${product.price}`}</div>
+                <div className="price">
+          {product.discount && (
+            <div className="discounted-price">{`$${product.afterDiscount}`}</div>
+          )}
+          {product.discount && <div className="old-price">{`$${product.price}`}</div>}
+          {!product.discount && <div className="price">{`$${product.price}`}</div>}
+        </div>
               </div>
               <button
   className="proBtn"

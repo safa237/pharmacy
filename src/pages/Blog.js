@@ -67,7 +67,13 @@ function Blog() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/public/content/all/en');
+        const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/public/content/all' ,
+        {
+          headers: {
+            'Accept-Language': language,
+          },
+        }
+        );
         setBlogs(response.data.data.posts);
       } catch (error) {
         console.error('Error fetching blogs:', error);
@@ -82,7 +88,13 @@ function Blog() {
   
   const handleBlogClick = async (clickedBlog) => { 
     try {                              
-      const response = await axios.get(`https://ecommerce-1-q7jb.onrender.com/api/v1/public/content/${clickedBlog.blogPostId}/en`)
+      const response = await axios.get(`https://ecommerce-1-q7jb.onrender.com/api/v1/public/content/${clickedBlog.blogPostId}`,
+      {
+        headers: {
+          'Accept-Language': language,
+        },
+      }
+      )
       setDetailsOpen(true);
       setDialogBlogContent(response.data.data.posts);
       navigate(`/blog/${clickedBlog.blogPostId}`);
@@ -143,65 +155,7 @@ function Blog() {
 
  
 
- /* const handleAddToLike = async (blogId) => {
-    try {
-    
-        await axios.put( 
-          `https://ecommerce-1-q7jb.onrender.com/api/v1/user/like/${blogId}`,
-          {},
-          {
-            headers: {
-              'Authorization': `Bearer ${bearerToken}`,
-            },
-          }
-        );
-        console.log('blog added to like');
-    } catch (error) {
-      console.error('Error updating blog in like: ', error.message);
-    }
-  };*/
-
- /* const handleAddToLike = async (blogPostId) => {
-    try {
-      if (isProductInLikes(blogPostId)) {
-        // If product is already in wishlist, remove it
-        await handleDeleteFromLikes(blogPostId);
-      } else {
-        // If product is not in wishlist, add it
-        await axios.put(
-          `https://ecommerce-1-q7jb.onrender.com/api/v1/user/like/${blogPostId}`,
-          {},
-          {
-            headers: {
-              'Authorization': `Bearer ${bearerToken}`,
-            },
-          }
-        );
-        
-      }
-      console.log('blog added to like');
-    } catch (error) {
-      console.error('Error updating product in wishlist: ', error.message);
-    }
-  };
-  
-  const handleDeleteFromLikes = async (blogPostId) => {
-    try {
-      await axios.delete(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/unlike/${blogPostId}`, {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      });
-      console.log('blog delete from like');
-    } catch (error) {
-      console.error('Error deleting product from wishlist:', error);
-    }
-  };
-  const [blog, setBlog] = useState([]);
-
-  const isProductInLikes = (blogPostId) => {
-    return blog.some(item => item.blogPostId === blogPostId);
-  };*/
+ 
   return (
    
      <div className="page-container">

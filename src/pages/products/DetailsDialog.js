@@ -94,10 +94,10 @@ const handleCloseModal = () => setShowModal(false);
               
             </div>
             <div className='infodetails'>
-            <h1 >{product.name}</h1>
+            <h1 >{product.name || product.productName}</h1>
                     <hr />
                     <p className="lead">
-                    {product.description}
+                    {product.description || product.productDescription}
 
                     </p>
 
@@ -110,7 +110,10 @@ const handleCloseModal = () => setShowModal(false);
                     </div>
 
                     <div className='counter-flex'>
-                  <h1>{product.price * quantity} $</h1>
+                    {product.discount && (
+                    <h1>{product.afterDiscount  * quantity } $</h1> )}
+                    {!product.discount && (
+                    <h1>{(product.price || product.productPrice)  * quantity} $</h1> )}
                
                 <div className="counter">
                   <button onClick={handleDecrement}>

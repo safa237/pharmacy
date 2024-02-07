@@ -28,11 +28,7 @@ const handleIconClick = (event) => {
 
     return (
         <div className={`sidebaruser ${isOpen ? 'open' : ''}`}>
-           {/*<div className="user-info">
-                
-                <div className="user-name">User NameUser NameUser Name</div>
-            </div>
-            <hr className="separator" /> */}
+          
             <nav className="sidebar-nav">
             <Link to="/profile" className="cart-link">
               <FaUser style={{marginRight : '15px' , fill: '#23b447e6'}} className="cart-icon" />

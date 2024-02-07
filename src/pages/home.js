@@ -77,38 +77,41 @@ const [modalMessage, setModalMessage] = useState('');
 const handleCloseModal = () => setShowModal(false);
   
 const handleAddToFavorites = async (productId) => {
-  
   try {
     if (!isUserLoggedIn) {
       setModalMessage('please sign in first');
       setShowModal(true);
       return;
     }
-    
     if (isProductInWishlist(productId)) {
       await handleDeleteFromWishlist(productId);
     } else {
-      await axios.put( 
+      const response = await axios.put( 
         `https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/add/${productId}`,
         {},
         {
           headers: {
             'Authorization': `Bearer ${bearerToken}`,
+            'Content-Type': 'application/json',
+            'Accept-Language': language,
           },
         }
       );
+      console.log('Response:', response.data); // Print the response data
       await fetchUserFavourite();
     }
   } catch (error) {
-    console.log('Error updating product in wishlist: ', error.message);
+    console.log('Error adding product to wishlist: ', error.message);
   }
 };
+
 
 const handleDeleteFromWishlist = async (productId) => {
   try {
     await axios.delete(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/remove/${productId}`, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
+        'Accept-Language': language,
       },
     });
     await fetchUserFavourite();
@@ -120,10 +123,10 @@ const handleDeleteFromWishlist = async (productId) => {
 const fetchUserFavourite = async () => {
   
   try {
-    const language = 'en';
-    const response = await axios.get(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/${language}`, {
+    const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/my', {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
+        'Accept-Language': language,
       },
     });
 
@@ -160,10 +163,13 @@ const fetchUserFavourite = async () => {
           headers: {
             'Authorization': `Bearer ${bearerToken}`,
             'Content-Type': 'application/json',
+            'Accept-Language': language,
           },
         }
       );
   
+      setModalMessage('product added to cart');
+      setShowModal(true);
       console.log('Product added to cart:', response.data);
   
     } catch (error) {
@@ -186,36 +192,6 @@ const fetchUserFavourite = async () => {
   };
 
 
-  const handleClick = (productId, product) => {
-  setFavoriteStatus((prevState) => ({ ...prevState, [productId]: !prevState[productId] }));
-
-  const url = `https://mostafaben.bsite.net/api/Wishlist/${productId}`;
-  if (!favoriteStatus[productId]) {
-    
-    axios
-      .post(`https://mostafaben.bsite.net/api/Wishlist?userId=${userId}&productId=${productId}`)
-      .then((response) => {
-        console.log(`Product ${productId} added to favorites successfully`, response.data);
-        // Save favorites to local storage
-        saveFavoritesToLocalStorage(userId, { ...favoriteStatus, [productId]: true });
-      })
-      .catch((error) => {
-        console.error(`Failed to add product ${productId} to favorites`, error);
-      });
-  } else {
-    axios
-      .delete(url)
-      .then((response) => {
-        console.log(`Product ${productId} removed from favorites successfully`, response.data);
-        saveFavoritesToLocalStorage(userId, { ...favoriteStatus, [productId]: false });
-      })
-      .catch((error) => {
-        console.error(`Failed to remove product ${productId} from favorites`, error);
-      });
-  }
-
- 
-};
 
   
   useEffect(() => {
@@ -250,9 +226,7 @@ const fetchUserFavourite = async () => {
     fetchData();
   }, [language]);
 
- 
   
-
   const rating = selectedProduct ? selectedProduct.rate : 0;
 
 
@@ -295,54 +269,56 @@ const fetchUserFavourite = async () => {
     className="card"
     key={product.id}
   >
-    <div className="card-body">
-      <div className="card-icons">
-       <FaHeart
+   <div className="card-body">
+            <div className="card-icons">
+           
+            <FaHeart
       onClick={() => handleAddToFavorites(product.productId)}
       style={{ color: isProductInWishlist(product.productId) ? 'red' : '#3EBF87' }}
     />
-        {/*<FaHeart
-            onClick={() => {
-              if (favorites.includes(product.productId)) {
-                handleDeleteFromWishlist(product.productId);
-              } else {
-                handleAddToFavorites(product.productId);
-              }
-            }}
-            style={{transition : ' 0.3s ease', cursor: 'pointer', color: favorites.includes(product.productId) ? 'red' : '#3EBF87' }}
-          />*/}
-       
-          <FaEye
-            className="cart-iconPro"
-            onClick={() => handleDetailsClick(product)}
-          />
-        
-      </div>
-      <div className="card-img">
-        <Link to={`/home/product/${product.productId}`}>
+          
+
+           <FaEye className="cart-iconPro"
+                 onClick={() => handleDetailsClick(product)}
+               /> 
+                              
+
+              </div>
+              <div className="card-imgstore" >
+              
+              <Link to={`/home/product/${product.productId}`}>
           <img src={product.pictureUrl} alt="Product poster" />
         </Link>
-      </div>
-      <div className="card-info">
-        <h2>{product.name}</h2>
-        <div className="rate">
-          <StarRating initialRating={product.rating} isClickable={false} />
-        </div>
-        <div className="price">
+                  
+              </div>
+              <div className=' card-infoStore'>
+                <h2>{product.name}</h2>
+                
+                <div className='rate'>
+                
+                {isLoggedIn && <StarRating
+                           initialRating={product.rating}
+                          isClickable={false}
+                        /> }
+  
+                </div>
+                <div className="price">
           {product.discount && (
             <div className="discounted-price">{`$${product.afterDiscount}`}</div>
           )}
           {product.discount && <div className="old-price">{`$${product.price}`}</div>}
           {!product.discount && <div className="price">{`$${product.price}`}</div>}
         </div>
-      </div>
-      <button
-        className="proBtn"
-        onClick={() => handleAddToCart(product.productId, product)}
-      >
-        Add to Cart
-      </button>
-    </div>
+              </div>
+              <button
+  className="proBtn"
+  onClick={() => handleAddToCart(product.productId, product)}
+>
+  add to cart
+</button>
+              
+             
+            </div>
   </div>
 ))}
 

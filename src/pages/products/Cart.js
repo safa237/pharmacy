@@ -8,12 +8,12 @@ import {  useState} from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { setLanguage , selectLanguage , selectTranslations } from "../../rtk/slices/Translate-slice";
-import { FaHeart, FaShoppingCart , FaSearch } from 'react-icons/fa';
 import logo from '../../images/Vita Logo2.png' ;
 import { FaTrash } from "react-icons/fa";
 import { setSearchTerm } from "../../rtk/slices/Search-slice";
 import { selectToken } from "../../rtk/slices/Auth-slice";
-
+import { FaHeart, FaShoppingCart, FaEye } from 'react-icons/fa';
+import { FaPlus , FaMinus } from "react-icons/fa";
 import axios from "axios";
 import './cart.css';
 
@@ -25,8 +25,19 @@ function Cart() {
   //const cart = useSelector(state => state.cart);
   const [totalPrice, setTotalPrice] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-  
+  const [quantity, setQuantity] = useState(1);
+
   const cartProducts = useSelector((state) => state.cart);
+
+  const handleIncrement = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 0) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -81,9 +92,10 @@ function Cart() {
     try {
       const language = 'en'; 
   
-      const response = await axios.get(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/cart/${language}`, {
+      const response = await axios.get('https://ecommerce-1-q7jb.onrender.com/api/v1/user/cart/my', {
         headers: {
           'Authorization': `Bearer ${bearerToken}`,
+          'Accept-Language': language,
         },
       });
   
@@ -93,6 +105,7 @@ function Cart() {
         setCart(cartData.cart.cartItems || []); 
         calculateTotalPrice(cartData.cart.cartItems); 
         console.log('Success fetch carts', cartData.cart.cartItems);
+        console.log('n of products' , );
       } else {
         console.error('Error fetching user cart: Unexpected response structure');
       }
@@ -107,6 +120,7 @@ function Cart() {
       await axios.delete(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/cart/remove/${productId}`, {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
+          'Accept-Language': language,
         },
       });
       await fetchUserCart();
@@ -123,6 +137,28 @@ function Cart() {
     setTotalPrice(totalPrice);
   };
 
+
+  const handleAddToFavorites = async (productId) => {
+    try {
+      const response = await axios.put( 
+        `https://ecommerce-1-q7jb.onrender.com/api/v1/user/wishlist/add/${productId}`,
+        {},
+        {
+          headers: {
+            'Authorization': `Bearer ${bearerToken}`,
+            'Content-Type': 'application/json',
+            'Accept-Language': language,
+          },
+        }
+      );
+      await handleDeleteFromCart(productId); 
+      console.log('Response:', response.data); 
+    } catch (error) {
+      console.log('Error adding product to wishlist: ', error.message);
+    }
+  };
+  
+
   useEffect(() => {
     fetchUserCart();
   }, []);
@@ -131,6 +167,40 @@ function Cart() {
     calculateTotalPrice(cart);
   }, [cart]);
  
+
+  const [updatedCart, setUpdatedCart] = useState([]);
+
+  const handleSave = async (productId, product) => {
+   
+    const cartItem = {
+      productId: productId,
+      quantity: quantity, 
+    };
+  
+    try {
+      const response = await axios.put(
+        'https://ecommerce-1-q7jb.onrender.com/api/v1/user/cart/update',
+        cartItem,
+        {
+          headers: {
+            'Authorization': `Bearer ${bearerToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      console.log('Product added to cart:', response.data);
+      setQuantity(quantity);
+      setTotalPrice(totalPrice);
+      await fetchUserCart();
+    } catch (error) {
+      console.error('Error adding product to cart:', error.message);
+    }
+  };
+
+
+ 
+  
   return(
     <div>
        <NavHeader
@@ -138,6 +208,7 @@ function Cart() {
         handleSearchChange={handleSearchChange}
         //filteredProducts={filteredProducts}
         handleProductClick={handleProductClick}
+        cartunmber = {cart.length}
       />
 
       <div className="green-containerr cartGreen ">
@@ -147,24 +218,42 @@ function Cart() {
           {cart?.map((product) => (<div className="productcart" key={product.productId}>
               <div className="flexOnecart">
                 <div className="imgcart">
-                {/*<Image
-                  src={product.cartItems.pictureUrl}
+                <Image
+                  src={product.pictureUrl}
                   alt="Product poster"
-                  style={{ width: "100px", height: "100px" }}
-  />*/}
+                  style={{ width: "100%", height: "60%" }}
+  />
                 </div>
                 <div className="infocartone">
                   <div  className="namecart" ><h4>{product.productName}</h4></div>
                   <h5>{product.productPrice}$</h5>
                   <h5>quantity : {product.quantity}</h5>
+
+                  <div className="countercart">
+                  <button style={{backgroundColor:'#3EBF87' , color : 'white'}} onClick={handleDecrement}>
+                    <FaMinus />
+                  </button>
+                  <span>{quantity}</span>
+                  <button style={{backgroundColor:'#3EBF87' , color : 'white'}} onClick={handleIncrement}>
+                    <FaPlus />
+                  </button>
+                  <button style={{backgroundColor:'transparent' , fontSize: 'larger' , fontWeight: 'bold'}}
+                  onClick={() => handleSave(product.productId , product)}>save</button>
+                </div>
                 </div>
                 <div className="infocarttwo">
                   <div className="namecart" >
                   
-              <FaTrash style={{color: 'red'}} 
+              <FaTrash style={{color: 'red' , fontSize:'20px'}} 
               onClick={() => handleDeleteFromCart(product.productId)}/>
                   </div>
-                  <h6> </h6>
+                  <div className="namecart" >
+                  
+              <FaHeart style={{color: '#3EBF87' , fontSize:'20px'}} 
+              onClick={() => handleAddToFavorites(product.productId)} />
+                  </div>
+
+                  
                 </div>
               </div>
             </div> ))}

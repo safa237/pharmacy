@@ -111,6 +111,7 @@ function BlogDetails() {
           {
             headers: {
               'Authorization': `Bearer ${bearerToken}`,
+                'Accept-Language': language,
             },
           }
         );
@@ -134,6 +135,8 @@ function BlogDetails() {
       await axios.delete(`https://ecommerce-1-q7jb.onrender.com/api/v1/user/unlike/${blogPostId}`, {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
+            'Accept-Language': language,
+        
         },
       });
       console.log('deleted succefully');
@@ -159,6 +162,7 @@ function BlogDetails() {
         {
           headers: {
             'Authorization': `Bearer ${bearerToken}`,
+              'Accept-Language': language,
           },
         }
       );

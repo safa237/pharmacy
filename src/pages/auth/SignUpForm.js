@@ -172,14 +172,14 @@ const SignUpForm = ({ showPassword, handleTogglePasswordVisibility }) => {
   const handleRegister = () => {
     axios.post('https://ecommerce-1-q7jb.onrender.com/api/v1/auth/register', formData, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept-Language': language,
       }
     })
     .then(result => {
       console.log("Result data:", result.data);
       console.log("Result data:", result.data.message);
 
-      // Dispatch setToken action to store the token in Redux
       dispatch(setToken(result.data.data.token));
 
       setRegistrationMessage(result.data.message);
