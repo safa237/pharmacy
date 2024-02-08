@@ -300,6 +300,7 @@ const fetchUserFavourite = async () => {
                            initialRating={product.rating}
                           isClickable={false}
                         /> 
+                <h5>({product.reviews})</h5>
   
                 </div>
                 <div className="price">

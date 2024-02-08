@@ -190,7 +190,6 @@ const SignUpForm = ({ showPassword, handleTogglePasswordVisibility }) => {
       if (err.response && err.response.data && err.response.data.success === false) {
         const errorMessage = err.response.data.message;
   
-        // Check if the error message indicates that the email or phone already exists
         if (errorMessage.includes("email")) {
           setErrors({ registration: "This email already exists. Please choose a different one." });
         } else if (errorMessage.includes("phone")) {

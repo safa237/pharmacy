@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
@@ -12,7 +11,7 @@ h1, h2, h3, h4, h5, h6 {
 
 body,
 input {
-  font-family: "Poppins", sans-serif;
+  font-family: normal;
   
 }
 
@@ -42,6 +41,7 @@ input {
   display: grid;
   grid-template-columns: 1fr;
   z-index: 5;
+  height: 700px;
 }
 
 form {
@@ -76,7 +76,7 @@ form.sign-in-form {
   width: 100%;
   background-color: #f0f0f0;
   margin: 10px 0;
-  height: 55px;
+ 
   border-radius: 55px;
   display: grid;
   grid-template-columns: 15% 85%;
@@ -95,7 +95,7 @@ form.sign-in-form {
 
 .input-field .ico {
   text-align: center;
-  line-height: 55px;
+ 
   color: #acacac;
   transition: 0.5s;
   font-size: 1.1rem;
@@ -116,37 +116,21 @@ form.sign-in-form {
   justify-content: center;
 }
 
-.social-icon {
-  height: 46px;
-  width: 46px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0.45rem;
-  color: #333;
-  border-radius: 50%;
-  border: 1px solid #333;
-  text-decoration: none;
-  font-size: 1.1rem;
-  transition: 0.3s;
-}
 
-.social-icon:hover {
-  color: #3EBF87;
-  border-color: #3EBF87;
-}
+
+
 
 .signbtn {
   width: 150px;
   background-color: #3EBF87;
   border: none;
   outline: none;
-  height: 49px;
+ height: 40px;
   border-radius: 49px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
-  margin: 10px 0;
+  
   
   cursor: pointer;
   transition: 0.5s;
@@ -227,7 +211,7 @@ form.sign-in-form {
   background: none;
   border: 2px solid #fff;
   width: 130px;
-  height: 41px;
+ 
   font-weight: 600;
   font-size: 0.8rem;
 }
@@ -424,7 +408,7 @@ form.sign-in-form {
   }
 
   .containersign:before {
-    bottom: 72%;
+    /*bottom: 72%;*/
     left: 50%;
   }
 
@@ -441,4 +425,7 @@ form.sign-in-form {
   color: red; /* Set the text color to red (or any other color you prefer) */
   font-size: 14px; /* Set the font size */
   /* Add any additional styling you want */
+}
+.signincont{
+  margin-top: 40%;
 }

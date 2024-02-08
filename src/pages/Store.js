@@ -493,12 +493,13 @@ function Store  ()  {
                 
                 <div className='rate'>
                 
-                {isLoggedIn && <StarRating
-                           initialRating={product.rating}
-                          isClickable={false}
-                        /> }
-  
-                </div>
+                <StarRating
+                            initialRating={product.rating}
+                           isClickable={false}
+                         /> 
+                 <h5>({product.reviews})</h5>
+   
+                 </div>
                 <div className="price">
           {product.discount && (
             <div className="discounted-price">{`$${product.afterDiscount}`}</div>

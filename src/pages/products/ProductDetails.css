@@ -112,9 +112,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #3EBF87;
+  border-radius: 15px;
+  padding: 5px;
 }
 
 .flexnamerate h2{
-  color: #3EBF87;
+  color: white;
 }
 

@@ -146,17 +146,23 @@ const [detailsOpen, setDetailsOpen] = useState(false);
             <div className="detailsflex">
 
             <div className="detailsflexabout">
-            <div className="flexnamerate">
+            <div  className="flexnamerate">
                 <div className="">
                   <h2>
                   {productDetails && productDetails.name}
                   </h2>
                 </div>
-                <div className="">
-                  <h2>
-                  {productDetails && productDetails.price}$
-                  </h2>
-                </div>
+                <div >
+  {productDetails && productDetails.discount ? (
+    <>
+      <h2 className="discounted-price">{`$${productDetails.afterDiscount}`}</h2>
+      <div style={{color:'white'}} className="old-price">{`$${productDetails.price}`}</div>
+    </>
+  ) : (
+    <h2>{`$${productDetails && productDetails.price}`}</h2>
+  )}
+</div>
+
                 <div className="">
                 <StarRating
                            initialRating={productDetails && productDetails.rating}

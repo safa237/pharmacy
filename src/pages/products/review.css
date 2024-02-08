@@ -29,7 +29,7 @@
     display: flex;
      flex-direction: row;
      position: relative;
-     width: 100%;
+     width: 80%;
 }
 .infoComment h5{
     font-size: large;

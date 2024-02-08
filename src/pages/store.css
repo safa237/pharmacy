@@ -37,9 +37,7 @@
  
 }
 
-.card-body{
-  height: 400px;
-}
+
 .card-store .cards:last-child {
   margin-right: 0; 
 }

@@ -177,7 +177,12 @@ body{
       font-size: large;
       text-decoration: line-through;
       color: #808080;
-      margin-top: 4px;
+     
+    }
+    .rate h5{
+      font-size: large;
+      color: #808080;
+      margin-left: 4px;
     }
    .card-info h2{
       color: #3A7E89;
@@ -401,6 +406,10 @@ line-height: normal;
 .search-container input{
   height: 50px;
   background-color: transparent;
+}
+.rate{
+  display: flex;
+  flex-direction: row; 
 }
 
 
